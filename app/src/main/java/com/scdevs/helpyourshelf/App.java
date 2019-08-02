@@ -1,8 +1,13 @@
 package com.scdevs.helpyourshelf;
 
+import android.app.Application;
+
+import com.scdevs.helpyourshelf.DBModels.DaoMaster;
+import com.scdevs.helpyourshelf.DBModels.DaoSession;
+
 import org.greenrobot.greendao.database.Database;
 
-public class App {
+public class App extends Application {
 
 	HSOpenHelper helper;
 	Database db;
