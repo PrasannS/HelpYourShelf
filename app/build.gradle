@@ -11,6 +11,11 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
+    sourceSets.main {
+        jni.srcDirs = []
+        File configFile = file('/Users/prasannsinghal/StudioProjects/HelpYourShelf/app/src/main/jniLibs')
+        jniLibs.srcDir configFile.absolutePath
+    }
     buildTypes {
         release {
             minifyEnabled false
@@ -32,4 +37,6 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    implementation project(path: ':openCVLibrary347')
+    implementation 'com.google.android.gms:play-services-vision:15.0.0'
 }
