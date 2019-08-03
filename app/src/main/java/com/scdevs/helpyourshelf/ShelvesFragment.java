@@ -1,6 +1,7 @@
 package com.scdevs.helpyourshelf;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -51,6 +52,9 @@ public class ShelvesFragment extends Fragment implements ShelvesRecyclerView.Ite
     @Override
     public void onItemClick(View view, int position) {
         Toast.makeText(getContext(), "You clicked " + adapter.getItem(position) + " on row number " + position, Toast.LENGTH_SHORT).show();
+        Intent i = new Intent(getActivity(), ShelfActivity.class);
+        i.putExtra("name", adapter.getItem(position));
+        startActivity(i);
     }
 
 }
