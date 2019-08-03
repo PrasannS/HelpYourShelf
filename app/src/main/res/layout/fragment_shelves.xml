@@ -11,7 +11,14 @@
         android:text="My Shelves"
         android:gravity="center_horizontal"
         android:textSize="40sp"
-        android:layout_weight="8"/>
+        android:layout_weight="10"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"
+        android:layout_marginTop="20dp" />
+
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/shelvesrv"
