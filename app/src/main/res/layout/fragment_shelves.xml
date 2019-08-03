@@ -11,13 +11,29 @@
         android:text="My Shelves"
         android:gravity="center_horizontal"
         android:textSize="40sp"
-        android:layout_weight="8"/>
+        android:layout_weight="5"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"
+        android:layout_marginTop="20dp" />
+
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/shelvesrv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"/>
+
+
+
+        <android.support.design.widget.FloatingActionButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|right"
+            android:src="@drawable/ic_add_circle_black_24dp"
+            android:id="@+id/addshelf"/>
 
 
 
