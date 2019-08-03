@@ -13,10 +13,9 @@ public class AddBookDialog extends AppCompatDialog {
         super(context);
     }
 
-
     public Dialog OnCreateDialog(Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getOwnerActivity());
-        builder.setTitle("Add a Book Bitch").setMessage("that's right").setPositiveButton("ok", new DialogInterface.OnClickListener(){
+        builder.setTitle("Add a Book").setMessage("that's right").setPositiveButton("ok", new DialogInterface.OnClickListener(){
             @Override
             public void onClick(DialogInterface dialogInterface, int i){
 
