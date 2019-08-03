@@ -30,7 +30,5 @@ public class book_info_activity extends AppCompatActivity {
             isFinished.setChecked(true);
         }
 
-
-
     }
 }
