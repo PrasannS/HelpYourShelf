@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.SurfaceView;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import org.opencv.android.BaseLoaderCallback;
@@ -40,7 +41,7 @@ public class CameraFragment extends Fragment implements CameraBridgeViewBase.CvC
     BaseLoaderCallback baseLoaderCallback;
     boolean saveImg = false;
     FloatingActionButton fab;
-
+    ImageView testImgView;
 
     public static CameraFragment newInstance(){
         CameraFragment fragment = new CameraFragment();
@@ -89,6 +90,8 @@ public class CameraFragment extends Fragment implements CameraBridgeViewBase.CvC
                 super.onPackageInstall(operation, callback);
             }
         };
+
+        testImgView = (ImageView) getView().findViewById(R.id.TestImgView);
 
 
     }
