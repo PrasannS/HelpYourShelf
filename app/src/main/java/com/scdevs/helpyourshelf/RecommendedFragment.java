@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.scdevs.helpyourshelf.BooksAPI.BooksResult;
+import com.scdevs.helpyourshelf.BooksAPI.VolumeInfo;
 import com.scdevs.helpyourshelf.DBModels.Volume;
 
 import java.util.ArrayList;
@@ -58,5 +59,15 @@ public class RecommendedFragment extends Fragment implements APIClient.responseC
     public void onCallback(ArrayList<BookHolder> response) {
         for (int i = 0; i < response.size(); i++)
             recommendations.add(response.get(i));
+    }
+
+    @Override
+    public void onCallback(VolumeInfo s, Long bksid) {
+
+    }
+
+    @Override
+    public void onCallback(String s) {
+
     }
 }

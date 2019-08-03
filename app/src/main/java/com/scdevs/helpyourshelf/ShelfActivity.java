@@ -12,8 +12,10 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.scdevs.helpyourshelf.BooksAPI.VolumeInfo;
 import com.scdevs.helpyourshelf.DBModels.Book;
 import com.scdevs.helpyourshelf.DBModels.BookDao;
+import com.scdevs.helpyourshelf.DBModels.BookShelfDao;
 import com.scdevs.helpyourshelf.DBModels.DaoSession;
 import com.scdevs.helpyourshelf.DBModels.Shelf;
 import com.scdevs.helpyourshelf.DBModels.Volume;
@@ -22,8 +24,9 @@ import com.scdevs.helpyourshelf.DBModels.VolumeDao;
 import org.greenrobot.greendao.query.QueryBuilder;
 
 import java.util.ArrayList;
+import java.util.List;
 
-public class ShelfActivity extends AppCompatActivity implements BooksRecyclerView.ItemClickListener{
+public class ShelfActivity extends AppCompatActivity implements BooksRecyclerView.ItemClickListener, APIClient.responseCallbackListener{
 
     //TODO: What is that weird thing btwn books and volumes help pls
     BooksRecyclerView adapter;
@@ -31,11 +34,37 @@ public class ShelfActivity extends AppCompatActivity implements BooksRecyclerVie
     public DaoSession daoSession;
     VolumeDao volDao;
     APIClient client;
+    public String name;
+    public Long id;
+
+    @Override
+    public void onCallback(VolumeInfo vi,Long bksid) {
+        List<Volume>vols= daoSession.getVolumeDao().queryBuilder().where(VolumeDao.Properties.Title.like(vi.getTitle())).list();
+        if(vols.size()!=0) {
+            books.add(vols.get(0));
+            daoSession.getBookDao().insert(new Book(null,vols.get(0).getID() ,bksid, null, 0.0,false ));
+        }
+    }
+
+    @Override
+    public void onCallback(String s) {
+
+    }
+
+    @Override
+    public void onCallback(ArrayList<BookHolder> response) {
+
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shelf);
 
+
+        daoSession = ((App) getApplication()).daoSession;
+         name = getIntent().getStringExtra("name");
+         id = daoSession.getBookShelfDao().queryBuilder().where(BookShelfDao.Properties.Name.like(name)).list().get(0).getID();
         FloatingActionButton fab = findViewById(R.id.addbook);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -46,9 +75,7 @@ public class ShelfActivity extends AppCompatActivity implements BooksRecyclerVie
         });
 
 
-        Intent i = getIntent();
-        client = new APIClient(getApplicationContext());
-        daoSession = ((App) getApplication()).daoSession;
+        client = new APIClient(this,getApplicationContext());
         volDao = daoSession.getVolumeDao();
         //QueryBuilder builder = daoSession.getBookDao().queryBuilder().where(BookDao.Properties.BookshelfID.eq(i.getStringExtra("name"));
         //books = builder.list();
@@ -86,7 +113,7 @@ public class ShelfActivity extends AppCompatActivity implements BooksRecyclerVie
                 System.out.println("" + input.getText());
                 client.getBookByTitle(input.getText().toString());
                 //TODO: Query the volume from the book title
-                books.add(daoSession.getVolumeDao().queryBuilder().where(VolumeDao.Properties.Title.like(input.getText().toString())).list().get(0));
+
             }
         });
 

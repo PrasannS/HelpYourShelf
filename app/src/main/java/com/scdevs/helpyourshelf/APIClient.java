@@ -1,6 +1,8 @@
 package com.scdevs.helpyourshelf;
 
 import android.content.Context;
+import android.util.Log;
+import android.widget.Toast;
 
 import com.scdevs.helpyourshelf.BooksAPI.BooksResult;
 import com.scdevs.helpyourshelf.BooksAPI.Item;
@@ -40,7 +42,6 @@ public class APIClient {
 	}
 
 
-
 	public APIClient(responseCallbackListener r, Context context)
 	{
 		Retrofit builder = new Retrofit.Builder()
@@ -61,16 +62,21 @@ public class APIClient {
 			public void onResponse(Call<BooksResult> call, Response<BooksResult> response) {
 				if (response.isSuccessful())
 				{
-					if (response.body().getItems().size() > 0)
+					if (response.body().getItems().size() > 0) {
 						volDao.insert(volumeInfoToVolume(response.body().getItems().get(0).getVolumeInfo()));
+					}
+					responseListener.onCallback(response.body().getItems().get(0).getVolumeInfo(),daoSession.getBookShelfDao().loadAll().get(daoSession.getBookShelfDao().loadAll().size()-1).getID());
+				}
+				else{
+					System.out.println("Unsuccessful");
 				}
 			}
-
 			@Override
 			public void onFailure(Call<BooksResult> call, Throwable t) {
-
+				System.out.println("Failure");
 			}
 		});
+		System.out.println("done");
 	}
 
 	public Volume volumeInfoToVolume(VolumeInfo volInfo)
@@ -139,6 +145,9 @@ public class APIClient {
 	public interface responseCallbackListener
 	{
 		public void onCallback(ArrayList<BookHolder> response);
+		public void onCallback(VolumeInfo s, Long bksid);
+
+		void onCallback(String s);
 	}
 
 }
