@@ -76,15 +76,14 @@ public class ShelfActivity extends AppCompatActivity implements BooksRecyclerVie
 
         TextView title = findViewById(R.id.shelftitle);
         title.setText(name);
-
-
+        List<Book> books1 = daoSession.getBookDao().queryBuilder().where(BookDao.Properties.BookshelfID.eq(id)).list();
         client = new APIClient(this,getApplicationContext());
         volDao = daoSession.getVolumeDao();
         //QueryBuilder builder = daoSession.getBookDao().queryBuilder().where(BookDao.Properties.BookshelfID.eq(i.getStringExtra("name"));
         //books = builder.list();
         RecyclerView recyclerView = findViewById(R.id.booksrv);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new BooksRecyclerView(this, books);
+        adapter = new BooksRecyclerView(this, books1);
         recyclerView.setAdapter(adapter);
 
     }

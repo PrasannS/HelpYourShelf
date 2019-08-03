@@ -12,9 +12,11 @@ import android.util.Log;
 import android.view.SurfaceView;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.scdevs.helpyourshelf.CameraFragment;
+import com.scdevs.helpyourshelf.DBModels.DaoSession;
 import com.scdevs.helpyourshelf.RecommendedFragment;
 import com.scdevs.helpyourshelf.ShelvesFragment;
 
@@ -32,6 +34,7 @@ public class MainActivity extends AppCompatActivity{
 	private Button to_book_info;
 
 	FragmentPagerAdapter adapterViewPager;
+	ImageView testImgView;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -44,10 +47,6 @@ public class MainActivity extends AppCompatActivity{
 		viewPager.setAdapter(adapterViewPager);
 
 		viewPager.setCurrentItem(1);
-
-		Log.d("OPENCV CAMERA", R.id.cameraView + "");
-
-
 
 	}
 

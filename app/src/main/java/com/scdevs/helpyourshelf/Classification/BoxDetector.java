@@ -2,6 +2,7 @@ package com.scdevs.helpyourshelf.Classification;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.support.constraint.solver.widgets.Rectangle;
 import android.util.Log;
 
 import com.scdevs.helpyourshelf.DBModels.Book;
@@ -33,58 +34,37 @@ public class BoxDetector {
     private Mat dstNormScaled = new Mat();
     private static final int MAX_THRESHOLD = 255;
     private int threshold = 200;
+    double area = 0;
+    Rect holdR;
 
-    public Bitmap runner(Mat mat) {
+    public Bitmap runner(Mat mat,Context c) {
         try {
             System.loadLibrary("opencv_java3");
 
-    // This function implements the Harris Corner detection. The corners at intensity > thresh
-    // are drawn.
-        Mat Harris_scene = new Mat();
-
-        Mat harris_scene_norm = new Mat(), harris_object_norm = new Mat(), harris_scene_scaled = new Mat(), harris_object_scaled = new Mat();
-        int blockSize = 9;
-        int apertureSize = 5;
-        double k = 0.1;
-        Imgproc.cornerHarris(mat, Harris_scene,blockSize, apertureSize,k);
-
-        Core.normalize(Harris_scene, harris_scene_norm, 0, 255, Core.NORM_MINMAX, CvType.CV_32FC1, new Mat());
-
-        Core.convertScaleAbs(harris_scene_norm, harris_scene_scaled);
-
-        for( int j = 0; j < harris_scene_norm.rows() ; j++){
-            for( int i = 0; i < harris_scene_norm.cols(); i++){
-                if ((int) harris_scene_norm.get(j,i)[0] > 15){
-                    Imgproc.circle(harris_scene_scaled, new Point(i,j), 5 , new Scalar(0), 2 ,8 , 0);
-                }
-            }
-        }
-
-
-            /*
             Mat source = mat;
             Mat destination = new Mat(source.rows(), source.cols(), source.type());
+            Mat tmp = destination;
             int threshold = 100;
-
+            Imgproc.cvtColor(source, destination, Imgproc.COLOR_RGB2GRAY);
+            Imgproc.equalizeHist(destination, destination);
             Imgproc.Canny(destination, destination, threshold, threshold*3);
 
             List<MatOfPoint> contours = new ArrayList<>();
             Mat hierarchy = new Mat();
             Imgproc.findContours(destination, contours, hierarchy, Imgproc.RETR_EXTERNAL, Imgproc.CHAIN_APPROX_SIMPLE);
-
             MatOfPoint2f matOfPoint2f = new MatOfPoint2f();
             MatOfPoint2f approxCurve = new MatOfPoint2f();
+
+            ArrayList<Rect> rects = new ArrayList<>();
 
             for (int idx = 0; idx >= 0; idx = (int) hierarchy.get(0, idx)[0]) {
                 MatOfPoint contour = contours.get(idx);
                 Rect rect = Imgproc.boundingRect(contour);
-                double contourArea = Imgproc.contourArea(contour);
+                Imgproc.rectangle(destination, new Point(rect.x, rect.y), new Point(rect.x + rect.width, rect.y + rect.height), new Scalar(0, 255, 0, 255), 5);
+                //double contourArea = Imgproc.contourArea(contour);
                 matOfPoint2f.fromList(contour.toList());
                 Imgproc.approxPolyDP(matOfPoint2f, approxCurve, Imgproc.arcLength(matOfPoint2f, true) * 0.02, true);
                 long total = approxCurve.total();
-                if (total == 3) { // is triangle
-                    // do things for triangle
-                }
                 if (total >= 4 && total <= 6) {
                     List<Double> cos = new ArrayList<>();
                     Point[] points = approxCurve.toArray();
@@ -92,21 +72,19 @@ public class BoxDetector {
                         cos.add(angle(points[(int) (j % total)], points[j - 2], points[j - 1]));
                     }
                     Collections.sort(cos);
-                    Double minCos = cos.get(0);
-                    Double maxCos = cos.get(cos.size() - 1);
-                    boolean isRect = total == 4 && minCos >= -0.1 && maxCos <= 0.3;
-                    boolean isPolygon = (total == 5 && minCos >= -0.34 && maxCos <= -0.27) || (total == 6 && minCos >= -0.55 && maxCos <= -0.45);
+                    //Double minCos = cos.get(0);
+                    //Double maxCos = cos.get(cos.size() - 1);
+                    boolean isRect = total == 4 /*&& minCos >= -0.1 && maxCos <= 0.3*/;
                     if (isRect) {
-                        double ratio = Math.abs(1 - (double) rect.width / rect.height);
-                        drawText(destination,rect.tl(), ratio <= 0.02 ? "SQU" : "RECT");
-                    }
-                    if (isPolygon) {
-                        drawText(destination,rect.tl(), "Polygon");
+                        rects.add(rect);
+                        //double ratio = Math.abs(1 - (double) rect.width / rect.height);
+                       // drawText(mat,rect.tl(),"Rectangle");
                     }
                 }
             }
-            */
-            return getBitmapFromMat(harris_scene_scaled);
+            getKeywordsFromBoxes(rects,destination,c);
+
+            return getBitmapFromMat(new Mat(source, holdR));
         } catch (Exception e) {
             System.out.println("error: " + e.getMessage());
         }
@@ -121,31 +99,33 @@ public class BoxDetector {
         return (dx1*dx2 + dy1*dy2)/Math.sqrt((dx1*dx1 + dy1*dy1)*(dx2*dx2 + dy2*dy2) + 1e-10);
     }
 
-    public List<String>getKeywordsFromBoxes (List<Box>boxes, Mat original, Context c){
-        Rect r;
+    public List<String>getKeywordsFromBoxes (List<Rect>boxes, Mat original, Context c){
+        System.out.println("Started getKeywords");
         Mat temp;
         Bitmap bmap;
         int i = 0;
         TextRecognitionClient trc = new TextRecognitionClient(c);
         List<String>words = new ArrayList<>();
         String s ="";
-        for(Box b: boxes){
-            r = new Rect(b.x1, b.y1, b.x2-b.y1, b.y2-b.y1);
+        for(Rect r: boxes){
+            System.out.println("AREA: " + r.area());
+            if (r.area() > area)
+            {
+                area = r.area();
+                holdR = r;
+            }
             temp = new Mat(original, r);
             while(i<4){
                 bmap= getBitmapFromMat(temp);
                 s = trc.getTextFromBitmap(bmap);
-                if(temp.rows()<temp.cols()||s.length()==0){
-                    Core.rotate(temp,temp,Core.ROTATE_90_CLOCKWISE);
-                }
-                else if(temp.rows()>temp.cols()||s.length()>1){
-                    break;
-                }
+                Core.rotate(temp,temp,Core.ROTATE_90_CLOCKWISE);
                 i++;
             }
             if(s.length()>1)
             words.add(s);
+            i = 0;
         }
+        System.out.println(words.toString());
         
         return words;
     }

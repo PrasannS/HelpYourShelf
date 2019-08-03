@@ -1,9 +1,11 @@
 package com.scdevs.helpyourshelf;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
@@ -11,9 +13,11 @@ import android.view.LayoutInflater;
 import android.view.SurfaceView;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.scdevs.helpyourshelf.Classification.BoxDetector;
+import com.scdevs.helpyourshelf.Classification.TextRecognitionClient;
 
 import org.opencv.android.BaseLoaderCallback;
 import org.opencv.android.CameraBridgeViewBase;
@@ -26,6 +30,7 @@ import org.opencv.imgcodecs.Imgcodecs;
 import org.opencv.imgproc.Imgproc;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 
@@ -42,7 +47,7 @@ public class CameraFragment extends Fragment implements CameraBridgeViewBase.CvC
     BaseLoaderCallback baseLoaderCallback;
     boolean saveImg = false;
     FloatingActionButton fab;
-
+    ImageView testImgView;
 
     public static CameraFragment newInstance(){
         CameraFragment fragment = new CameraFragment();
@@ -61,7 +66,7 @@ public class CameraFragment extends Fragment implements CameraBridgeViewBase.CvC
                 saveImg = true;
             }
         });
-
+        testImgView = (ImageView) view.findViewById(R.id.TestImgView);
         return view;
     }
 
@@ -93,6 +98,8 @@ public class CameraFragment extends Fragment implements CameraBridgeViewBase.CvC
         };
 
 
+
+
     }
     @Override
     public void onCameraViewStarted(int width, int height) {
@@ -109,6 +116,11 @@ public class CameraFragment extends Fragment implements CameraBridgeViewBase.CvC
         if (saveImg)
         {
             saveImg = false;
+            TextRecognitionClient trc = new TextRecognitionClient(getContext());
+            String name = trc.getTextFromBitmap(trc.getBitmapFromMat(frame));
+//            TextRecognitionClient trc = new TextRecognitionClient(getContext());
+//            trc.getTextFromBitmap(map);
+            System.out.println("Name: " + name);
         }
 
 
