@@ -59,8 +59,10 @@ public class APIClient {
 	public void getShelfByTitles(List<String>titles){
 		BookShelf bks = new BookShelf(null, "Bookshelf", "default bookshelf");
 		daoSession.getBookShelfDao().insert(bks);
+		Book b;
 		for(String s: titles){
-			Book b= new Book(null,null,bks.getID(),null, 0,false, "s");
+			b= new Book(null,null,bks.getID(),null, 0,false, "s");
+			daoSession.getBookDao().insert(b);
 		}
 	}
 
