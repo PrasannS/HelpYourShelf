@@ -20,11 +20,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <!-- image loader -->
-            <me.relex.photodraweeview.PhotoDraweeView
+            <ImageView
                 android:id="@+id/book_image"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
+                android:layout_height="match_parent" />
         </LinearLayout>
 
         <!-- linear layout for the book description -->
