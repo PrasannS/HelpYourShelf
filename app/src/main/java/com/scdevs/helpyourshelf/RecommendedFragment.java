@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 
 /**
@@ -19,6 +20,28 @@ import android.view.ViewGroup;
  * create an instance of this fragment.
  */
 public class RecommendedFragment extends Fragment {
+
+    private ImageView genreRecommendation1;
+    private ImageView genreRecommendation2;
+    private ImageView genreRecommendation3;
+    private ImageView genreRecommendation4;
+
+    private ImageView authorRecommendation1;
+    private ImageView authorREcommendation2;
+    private ImageView authorRecommendation3;
+    private ImageView authorRecommendation4;
+
+    private String genreRecommendationURL1 = "http://books.google.com/books/content?id=RFVoAwAAQBAJ&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api";
+    private String genreRecommendationURL2 = "http://books.google.com/books/content?id=EOVjmwEACAAJ&printsec=frontcover&img=1&zoom=5&source=gbs_api";
+    private String genreRecommendationURL3 = "https://images-na.ssl-images-amazon.com/images/I/81iqZ2HHD-L.jpg";
+    private String genreRecommendationURL4 = "https://hpmedia.bloomsbury.com/rep/s/9781408855898_309038.jpeg";
+
+    private String authorRecommendationURL1 = "http://books.google.com/books/content?id=RFVoAwAAQBAJ&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api";
+    private String authorRecommendationURL2 = "http://books.google.com/books/content?id=EOVjmwEACAAJ&printsec=frontcover&img=1&zoom=5&source=gbs_api";
+    private String authorRecommendationURL3 = "https://images-na.ssl-images-amazon.com/images/I/81iqZ2HHD-L.jpg";
+    private String authorRecommendationURL4 = "https://hpmedia.bloomsbury.com/rep/s/9781408855898_309038.jpeg";
+
+
     public static RecommendedFragment newInstance(){
         RecommendedFragment fragment = new RecommendedFragment();
         return fragment;
@@ -30,4 +53,5 @@ public class RecommendedFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_recommended , container, false);
         return view;
     }
+
 }
