@@ -48,6 +48,7 @@ public class CameraFragment extends Fragment implements CameraBridgeViewBase.CvC
     boolean saveImg = false;
     FloatingActionButton fab;
     ImageView testImgView;
+    ArrayList<String> allNames = new ArrayList<>();
 
     public static CameraFragment newInstance(){
         CameraFragment fragment = new CameraFragment();
@@ -120,7 +121,7 @@ public class CameraFragment extends Fragment implements CameraBridgeViewBase.CvC
             String name = trc.getTextFromBitmap(trc.getBitmapFromMat(frame));
 //            TextRecognitionClient trc = new TextRecognitionClient(getContext());
 //            trc.getTextFromBitmap(map);
-            System.out.println("Name: " + name);
+            allNames.add(name);
         }
 
 

@@ -8,8 +8,10 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.scdevs.helpyourshelf.BooksAPI.BooksResult;
+import com.scdevs.helpyourshelf.BooksAPI.VolumeInfo;
 import com.scdevs.helpyourshelf.DBModels.Volume;
 
 import java.util.ArrayList;
@@ -39,7 +41,7 @@ public class RecommendedFragment extends Fragment implements APIClient.responseC
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
         View view = inflater.inflate(R.layout.fragment_recommended , container, false);
         recommendations = new ArrayList<>();
-        APIClient client = new APIClient(this);
+        APIClient client = new APIClient(this, getActivity().getApplication());
 
         return view;
     }
@@ -57,5 +59,15 @@ public class RecommendedFragment extends Fragment implements APIClient.responseC
     public void onCallback(ArrayList<BookHolder> response) {
         for (int i = 0; i < response.size(); i++)
             recommendations.add(response.get(i));
+    }
+
+    @Override
+    public void onCallback(VolumeInfo s, Long bksid) {
+
+    }
+
+    @Override
+    public void onCallback(String s) {
+
     }
 }

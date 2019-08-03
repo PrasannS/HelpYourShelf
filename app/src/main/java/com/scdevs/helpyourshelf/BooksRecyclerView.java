@@ -7,17 +7,20 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.scdevs.helpyourshelf.DBModels.Volume;
 
 import java.util.List;
 
 
 
     public class BooksRecyclerView extends RecyclerView.Adapter<BooksRecyclerView.ViewHolder>{
-        private List<String> mData;
+        private List<Volume> mData;
         private LayoutInflater mInflater;
         private com.scdevs.helpyourshelf.BooksRecyclerView.ItemClickListener mClickListener;
 
-        BooksRecyclerView(Context context, List<String> data) {
+        BooksRecyclerView(Context context, List<Volume> data) {
             this.mInflater = LayoutInflater.from(context);
             this.mData = data;
         }
@@ -30,7 +33,7 @@ import java.util.List;
 
         @Override
         public void onBindViewHolder(BooksRecyclerView.ViewHolder holder, int position) {
-            String name = mData.get(position);
+            String name = mData.get(position).getTitle();
             holder.myTextView.setText(name);
         }
 
@@ -56,12 +59,13 @@ import java.util.List;
         }
 
         String getItem(int id) {
-            return mData.get(id);
+            return mData.get(id).getTitle();
         }
 
         void setClickListener(com.scdevs.helpyourshelf.BooksRecyclerView.ItemClickListener itemClickListener) {
             this.mClickListener = itemClickListener;
         }
+
 
         public interface ItemClickListener {
 

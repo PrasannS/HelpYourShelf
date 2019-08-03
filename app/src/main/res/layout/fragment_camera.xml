@@ -13,6 +13,24 @@
 		android:layout_marginBottom="30dp"
 		android:id="@+id/camerabutton"/>
 
+	<android.support.design.widget.FloatingActionButton
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_gravity="bottom|left"
+		android:layout_marginBottom="15dp"
+		android:src="@drawable/ic_library_books_white_24dp"
+		android:backgroundTint="@color/cardview_shadow_end_color"
+		/>
+
+	<android.support.design.widget.FloatingActionButton
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_gravity="bottom|right"
+		android:layout_marginBottom="15dp"
+		android:src="@drawable/ic_book_white_24dp"
+		android:backgroundTint="@color/cardview_shadow_end_color"
+		/>
+
 	<org.opencv.android.JavaCameraView
 		android:layout_height="match_parent"
 		android:layout_width="match_parent"

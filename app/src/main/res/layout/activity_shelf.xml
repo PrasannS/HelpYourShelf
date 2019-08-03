@@ -18,6 +18,10 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:src="@drawable/example" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray"/>
 
     </FrameLayout>
 
