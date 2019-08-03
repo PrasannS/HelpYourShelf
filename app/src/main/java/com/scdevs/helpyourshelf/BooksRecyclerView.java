@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.scdevs.helpyourshelf.DBModels.Book;
 import com.scdevs.helpyourshelf.DBModels.Volume;
 
 import java.util.List;
@@ -15,11 +16,11 @@ import java.util.List;
 
 
     public class BooksRecyclerView extends RecyclerView.Adapter<BooksRecyclerView.ViewHolder>{
-        private List<Volume> mData;
+        private List<Book> mData;
         private LayoutInflater mInflater;
         private com.scdevs.helpyourshelf.BooksRecyclerView.ItemClickListener mClickListener;
 
-        BooksRecyclerView(Context context, List<Volume> data) {
+        BooksRecyclerView(Context context, List<Book> data) {
             this.mInflater = LayoutInflater.from(context);
             this.mData = data;
         }
@@ -32,7 +33,7 @@ import java.util.List;
 
         @Override
         public void onBindViewHolder(BooksRecyclerView.ViewHolder holder, int position) {
-            String name = mData.get(position).getTitle();
+            String name = mData.get(position).getName();
             holder.myTextView.setText(name);
         }
 
@@ -58,7 +59,7 @@ import java.util.List;
         }
 
         String getItem(int id) {
-            return mData.get(id).getTitle();
+            return mData.get(id).getName();
         }
 
         void setClickListener(com.scdevs.helpyourshelf.BooksRecyclerView.ItemClickListener itemClickListener) {
