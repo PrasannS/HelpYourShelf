@@ -1,9 +1,14 @@
 package com.scdevs.helpyourshelf;
 
+import android.content.Context;
+
 import com.scdevs.helpyourshelf.BooksAPI.BooksResult;
 import com.scdevs.helpyourshelf.BooksAPI.Item;
 import com.scdevs.helpyourshelf.BooksAPI.VolumeInfo;
+import com.scdevs.helpyourshelf.DBModels.BookDao;
+import com.scdevs.helpyourshelf.DBModels.DaoSession;
 import com.scdevs.helpyourshelf.DBModels.Volume;
+import com.scdevs.helpyourshelf.DBModels.VolumeDao;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -20,8 +25,23 @@ public class APIClient {
 
 	responseCallbackListener responseListener;
 	BooksInterface booksInterface;
+	public DaoSession daoSession;
+	VolumeDao volDao;
 
-	public APIClient(responseCallbackListener r)
+	public APIClient(Context context)
+	{
+		Retrofit builder = new Retrofit.Builder()
+				.baseUrl("https://www.googleapis.com/books/v1/")
+				.addConverterFactory(GsonConverterFactory.create())
+				.build();
+		booksInterface = builder.create(BooksInterface.class);
+		daoSession = ((App) context).daoSession;
+		volDao = daoSession.getVolumeDao();
+	}
+
+
+
+	public APIClient(responseCallbackListener r, Context context)
 	{
 		Retrofit builder = new Retrofit.Builder()
 				.baseUrl("https://www.googleapis.com/books/v1/")
@@ -29,6 +49,8 @@ public class APIClient {
 				.build();
 		booksInterface = builder.create(BooksInterface.class);
 		responseListener = r;
+		daoSession = ((App) context).daoSession;
+		volDao = daoSession.getVolumeDao();
 	}
 
 	public void getBookByTitle(String title)
@@ -39,10 +61,8 @@ public class APIClient {
 			public void onResponse(Call<BooksResult> call, Response<BooksResult> response) {
 				if (response.isSuccessful())
 				{
-					System.out.println(response.body().getItems().get(0).getVolumeInfo().getTitle());
-					System.out.println(response.body().getItems().get(0).getVolumeInfo().getAuthors());
-					System.out.println(response.body().getItems().get(0).getVolumeInfo().getDescription());
-					System.out.println(response.body().getItems().get(0).getVolumeInfo().getAverageRating());
+					if (response.body().getItems().size() > 0)
+						volDao.insert(volumeInfoToVolume(response.body().getItems().get(0).getVolumeInfo()));
 				}
 			}
 

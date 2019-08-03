@@ -39,7 +39,7 @@ public class RecommendedFragment extends Fragment implements APIClient.responseC
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
         View view = inflater.inflate(R.layout.fragment_recommended , container, false);
         recommendations = new ArrayList<>();
-        APIClient client = new APIClient(this);
+        APIClient client = new APIClient(this, getActivity().getApplication());
 
         return view;
     }
