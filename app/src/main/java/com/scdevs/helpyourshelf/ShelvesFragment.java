@@ -78,7 +78,6 @@ public class ShelvesFragment extends Fragment implements ShelvesRecyclerView.Ite
 
     @Override
     public void onItemClick(View view, int position) {
-        Toast.makeText(getContext(), "You clicked " + adapter.getItem(position) + " on row number " + position, Toast.LENGTH_SHORT).show();
         openShelf(position);
     }
 

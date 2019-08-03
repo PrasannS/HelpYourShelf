@@ -41,6 +41,12 @@ public class RecommendedFragment extends Fragment implements APIClient.responseC
         recommendations = new ArrayList<>();
         APIClient client = new APIClient(this, getActivity().getApplication());
 
+        ArrayList<Volume> recommendations = new ArrayList<Volume>();
+
+        client.getRecommendations(recommendations);
+
+
+
         return view;
     }
 

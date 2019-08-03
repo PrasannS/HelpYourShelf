@@ -51,7 +51,6 @@ public class ShelfActivity extends AppCompatActivity implements BooksRecyclerVie
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(ShelfActivity.this, "add a book", Toast.LENGTH_SHORT).show();
                 openDialog();
             }
         });
@@ -71,7 +70,6 @@ public class ShelfActivity extends AppCompatActivity implements BooksRecyclerVie
 
     @Override
     public void onItemClick(View view, int position) {
-        Toast.makeText(this, "You clicked " + adapter.getItem(position) + " on row number " + position, Toast.LENGTH_SHORT).show();
         Intent i = new Intent(this, book_info_activity.class);
         i.putExtra("name", adapter.getItem(position));
         startActivity(i);
