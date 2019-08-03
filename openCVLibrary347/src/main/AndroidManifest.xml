@@ -3,4 +3,5 @@
       package="org.opencv"
       android:versionCode="3470"
       android:versionName="3.4.7">
+
 </manifest>
