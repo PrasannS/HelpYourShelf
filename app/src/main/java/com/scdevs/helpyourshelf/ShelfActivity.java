@@ -43,7 +43,7 @@ public class ShelfActivity extends AppCompatActivity implements BooksRecyclerVie
         List<Volume>vols= daoSession.getVolumeDao().queryBuilder().where(VolumeDao.Properties.Title.like(vi.getTitle())).list();
         if(vols.size()!=0) {
             books.add(vols.get(0));
-            daoSession.getBookDao().insert(new Book(null,vols.get(0).getID() ,bksid, null, 0.0,false ));
+            daoSession.getBookDao().insert(new Book(null,vols.get(0).getID() ,bksid, null, 0.0,false, vols.get(0).getTitle() ));
         }
     }
 
@@ -124,4 +124,6 @@ public class ShelfActivity extends AppCompatActivity implements BooksRecyclerVie
         alertDialog.show();
 
     }
+
+
 }
