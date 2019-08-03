@@ -1,6 +1,7 @@
 package com.scdevs.helpyourshelf;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -62,7 +63,7 @@ public class CameraFragment extends Fragment implements CameraBridgeViewBase.CvC
                 saveImg = true;
             }
         });
-
+        testImgView = (ImageView) view.findViewById(R.id.TestImgView);
         return view;
     }
 
@@ -93,7 +94,7 @@ public class CameraFragment extends Fragment implements CameraBridgeViewBase.CvC
             }
         };
 
-        testImgView = (ImageView) getView().findViewById(R.id.TestImgView);
+
 
 
     }
@@ -112,6 +113,19 @@ public class CameraFragment extends Fragment implements CameraBridgeViewBase.CvC
         if (saveImg)
         {
             saveImg = false;
+            BoxDetector bd = new BoxDetector();
+            final Bitmap map = bd.runner(frame);
+            getActivity().runOnUiThread(new Runnable() {
+
+                @Override
+                public void run() {
+
+                    // Stuff that updates the UI
+                    testImgView.setImageBitmap(map);
+                    testImgView.setVisibility(View.VISIBLE);
+                }
+            });
+
         }
 
 

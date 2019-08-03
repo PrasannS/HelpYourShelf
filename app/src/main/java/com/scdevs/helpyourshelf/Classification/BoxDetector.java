@@ -27,14 +27,16 @@ import java.util.List;
 
 public class BoxDetector {
 
+
     public Bitmap runner(Mat mat) {
         try {
             System.loadLibrary("opencv_java3");
             Mat source = mat;
             Mat destination = new Mat(source.rows(), source.cols(), source.type());
+            Mat tmp = destination;
             int threshold = 100;
 
-            Imgproc.Canny(destination, destination, threshold, threshold*3);
+            Imgproc.Canny(source, destination, threshold, threshold*3);
 
             List<MatOfPoint> contours = new ArrayList<>();
             Mat hierarchy = new Mat();
