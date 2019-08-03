@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Looper;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -118,11 +119,17 @@ public class CameraFragment extends Fragment implements CameraBridgeViewBase.CvC
         {
             saveImg = false;
             TextRecognitionClient trc = new TextRecognitionClient(getContext());
-            String name = trc.getTextFromBitmap(trc.getBitmapFromMat(frame));
+            final String name = trc.getTextFromBitmap(trc.getBitmapFromMat(frame));
 //            TextRecognitionClient trc = new TextRecognitionClient(getContext());
 //            trc.getTextFromBitmap(map);
             allNames.add(name);
-        }
+            if (name.length() > 7)
+                getActivity().runOnUiThread(new Runnable() {
+                    public void run() {
+                        Toast.makeText(getContext(), "You've scanned: " + name, Toast.LENGTH_LONG).show();
+                    }
+                });
+            }
         APIClient client = new APIClient(getActivity().getApplicationContext());
         client.getShelfByTitles(allNames);
 

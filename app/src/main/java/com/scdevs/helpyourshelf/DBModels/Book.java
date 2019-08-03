@@ -29,7 +29,7 @@ public class Book {
 
     public Book(String title)
     {
-        setName(title);
+        name = title;
     }
 
     @Generated(hash = 417741470)

@@ -31,7 +31,7 @@ public class ShelfActivity extends AppCompatActivity implements BooksRecyclerVie
 
     //TODO: What is that weird thing btwn books and volumes help pls
     BooksRecyclerView adapter;
-    ArrayList<Volume> books = new ArrayList<Volume>();
+    ArrayList<Book> books = new ArrayList<Book>();
     public DaoSession daoSession;
     VolumeDao volDao;
     APIClient client;
@@ -42,7 +42,6 @@ public class ShelfActivity extends AppCompatActivity implements BooksRecyclerVie
     public void onCallback(VolumeInfo vi,Long bksid) {
         List<Volume>vols= daoSession.getVolumeDao().queryBuilder().where(VolumeDao.Properties.Title.like(vi.getTitle())).list();
         if(vols.size()!=0) {
-            books.add(vols.get(0));
             daoSession.getBookDao().insert(new Book(null,vols.get(0).getID() ,bksid, null, 0.0,false, vols.get(0).getTitle() ));
         }
     }
@@ -112,8 +111,8 @@ public class ShelfActivity extends AppCompatActivity implements BooksRecyclerVie
             public void onClick(DialogInterface dialog, int i) {
                 //ShelfActivity.this.finish();
                 System.out.println("" + input.getText());
-                client.getBookByTitle(input.getText().toString());
-                books.add(new Volume("" + input.getText()));
+                books.add(new Book("" + input.getText()));
+                daoSession.getBookDao().insert(new Book(null,null,id,null,0,false,""+input.getText()));
                 //TODO: Query the volume from the book title
 
             }
