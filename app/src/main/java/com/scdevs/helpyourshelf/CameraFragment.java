@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
@@ -16,6 +17,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.scdevs.helpyourshelf.Classification.BoxDetector;
+import com.scdevs.helpyourshelf.Classification.TextRecognitionClient;
 
 import org.opencv.android.BaseLoaderCallback;
 import org.opencv.android.CameraBridgeViewBase;
@@ -28,6 +30,7 @@ import org.opencv.imgcodecs.Imgcodecs;
 import org.opencv.imgproc.Imgproc;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 
@@ -45,6 +48,7 @@ public class CameraFragment extends Fragment implements CameraBridgeViewBase.CvC
     boolean saveImg = false;
     FloatingActionButton fab;
     ImageView testImgView;
+    ArrayList<String> allNames = new ArrayList<>();
 
     public static CameraFragment newInstance(){
         CameraFragment fragment = new CameraFragment();
@@ -113,21 +117,14 @@ public class CameraFragment extends Fragment implements CameraBridgeViewBase.CvC
         if (saveImg)
         {
             saveImg = false;
-            BoxDetector bd = new BoxDetector();
-            final Bitmap map = bd.runner(frame);
-            getActivity().runOnUiThread(new Runnable() {
-
-                @Override
-                public void run() {
-
-                    // Stuff that updates the UI
-                    testImgView.setImageBitmap(map);
-                    testImgView.setVisibility(View.VISIBLE);
-                }
-            });
-
+            TextRecognitionClient trc = new TextRecognitionClient(getContext());
+            String name = trc.getTextFromBitmap(trc.getBitmapFromMat(frame));
+//            TextRecognitionClient trc = new TextRecognitionClient(getContext());
+//            trc.getTextFromBitmap(map);
+            allNames.add(name);
         }
-
+        APIClient client = new APIClient(getActivity().getApplicationContext());
+        client.getShelfByTitles(allNames);
 
         return frame;
     }

@@ -20,20 +20,28 @@ public class Book {
     double rating;
     @Property(nameInDb = "read")
     boolean read;
+    @Property(nameInDb = "name")
+    String name;
 
     public Book(){
 
     }
 
-    @Generated(hash = 1653485820)
+    public Book(String title)
+    {
+        setName(title);
+    }
+
+    @Generated(hash = 417741470)
     public Book(Long ID, Long bookID, Long bookshelfID, Long shelfID, double rating,
-            boolean read) {
+            boolean read, String name) {
         this.ID = ID;
         this.bookID = bookID;
         this.bookshelfID = bookshelfID;
         this.shelfID = shelfID;
         this.rating = rating;
         this.read = read;
+        this.name = name;
     }
 
     public Long getID() {
@@ -82,5 +90,13 @@ public class Book {
 
     public void setRead(boolean read) {
         this.read = read;
+    }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

@@ -119,6 +119,10 @@ public class Volume {
 		this.ratingsCount = ratingsCount;
 	}
 
+	public Volume(String title){
+		this.title = title;
+	}
+
 	@Generated(hash = 108289630)
 	public Volume() {
 	}
