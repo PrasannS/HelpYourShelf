@@ -45,10 +45,4 @@ public class APIClient {
 		});
 	}
 
-	public static void main(String[] args)
-	{
-		APIClient client = new APIClient();
-		client.getBookByTitle("Frederick Douglass");
-	}
-
 }
