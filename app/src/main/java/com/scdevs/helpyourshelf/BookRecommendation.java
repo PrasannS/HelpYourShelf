@@ -11,10 +11,10 @@ import com.squareup.picasso.Picasso;
 public class BookRecommendation extends AppCompatActivity {
 
     //URL from Samuel (summer reading book)
-    private String tile1URL = "https://cdn.vox-cdn.com/thumbor/LPFPz-pGRHhIVmxVCgG9C9uJdPg=/0x0:2040x1360/1200x800/filters:focal(858x574:1184x900)/cdn.vox-cdn.com/uploads/chorus_image/image/64020108/acastro_190322_1777_apple_streaming_0003.0.jpg";
-    private String tile2URL = "https://cdn.vox-cdn.com/thumbor/LPFPz-pGRHhIVmxVCgG9C9uJdPg=/0x0:2040x1360/1200x800/filters:focal(858x574:1184x900)/cdn.vox-cdn.com/uploads/chorus_image/image/64020108/acastro_190322_1777_apple_streaming_0003.0.jpg";
-    private String tile3URL = "https://cdn.vox-cdn.com/thumbor/LPFPz-pGRHhIVmxVCgG9C9uJdPg=/0x0:2040x1360/1200x800/filters:focal(858x574:1184x900)/cdn.vox-cdn.com/uploads/chorus_image/image/64020108/acastro_190322_1777_apple_streaming_0003.0.jpg";
-    private String tile4URL = "https://cdn.vox-cdn.com/thumbor/LPFPz-pGRHhIVmxVCgG9C9uJdPg=/0x0:2040x1360/1200x800/filters:focal(858x574:1184x900)/cdn.vox-cdn.com/uploads/chorus_image/image/64020108/acastro_190322_1777_apple_streaming_0003.0.jpg";
+    private String tile1URL = "http://books.google.com/books/content?id=RFVoAwAAQBAJ&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api";
+    private String tile2URL = "http://books.google.com/books/content?id=RFVoAwAAQBAJ&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api";
+    private String tile3URL = "http://books.google.com/books/content?id=RFVoAwAAQBAJ&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api";
+    private String tile4URL = "http://books.google.com/books/content?id=RFVoAwAAQBAJ&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api";
 
 
     private ImageView tile1;
