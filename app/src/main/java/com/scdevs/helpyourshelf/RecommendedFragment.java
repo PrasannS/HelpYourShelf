@@ -58,4 +58,9 @@ public class RecommendedFragment extends Fragment implements APIClient.responseC
         for (int i = 0; i < response.size(); i++)
             recommendations.add(response.get(i));
     }
+
+    @Override
+    public void onCallback(String s) {
+
+    }
 }
