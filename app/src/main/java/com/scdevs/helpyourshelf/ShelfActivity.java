@@ -56,7 +56,7 @@ public class ShelfActivity extends AppCompatActivity implements BooksRecyclerVie
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter = new BooksRecyclerView(this, books);
         recyclerView.setAdapter(adapter);
-        adapter.setClickListener(this);
+
     }
 
     @Override
