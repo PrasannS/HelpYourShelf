@@ -5,10 +5,11 @@
     android:layout_height="match_parent"
     tools:context=".CameraFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Camera" />
+
+	<org.opencv.android.JavaCameraView
+		android:layout_height="match_parent"
+		android:layout_width="match_parent"
+		android:visibility="visible"
+		android:id="@+id/cameraView"></org.opencv.android.JavaCameraView>
 
 </FrameLayout>

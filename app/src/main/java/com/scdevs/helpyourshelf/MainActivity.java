@@ -8,23 +8,35 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.SurfaceView;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.scdevs.helpyourshelf.CameraFragment;
 import com.scdevs.helpyourshelf.RecommendedFragment;
 import com.scdevs.helpyourshelf.ShelvesFragment;
 
-public class MainActivity extends AppCompatActivity {
+import org.opencv.android.BaseLoaderCallback;
+import org.opencv.android.CameraBridgeViewBase;
+import org.opencv.android.InstallCallbackInterface;
+import org.opencv.android.JavaCameraView;
+import org.opencv.android.OpenCVLoader;
+import org.opencv.core.Core;
+import org.opencv.core.CvType;
+import org.opencv.core.Mat;
+import org.opencv.imgproc.Imgproc;
+
+public class MainActivity extends AppCompatActivity{
 	private Button to_book_info;
 
 	FragmentPagerAdapter adapterViewPager;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-
-
 
 		ViewPager viewPager = findViewById(R.id.viewPager);
 
@@ -32,7 +44,14 @@ public class MainActivity extends AppCompatActivity {
 		viewPager.setAdapter(adapterViewPager);
 
 		viewPager.setCurrentItem(1);
+
+		Log.d("OPENCV CAMERA", R.id.cameraView + "");
+
+
+
 	}
+
+
 
 	public static class MyPagerAdapter extends FragmentPagerAdapter{
 
@@ -60,5 +79,6 @@ public class MainActivity extends AppCompatActivity {
 			return 3;
 		}
 	}
+
 
 }
