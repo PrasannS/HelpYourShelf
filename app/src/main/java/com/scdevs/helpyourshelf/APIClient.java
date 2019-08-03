@@ -8,6 +8,7 @@ import com.scdevs.helpyourshelf.BooksAPI.BooksResult;
 import com.scdevs.helpyourshelf.BooksAPI.Item;
 import com.scdevs.helpyourshelf.BooksAPI.VolumeInfo;
 import com.scdevs.helpyourshelf.DBModels.BookDao;
+import com.scdevs.helpyourshelf.DBModels.BookShelf;
 import com.scdevs.helpyourshelf.DBModels.DaoSession;
 import com.scdevs.helpyourshelf.DBModels.Volume;
 import com.scdevs.helpyourshelf.DBModels.VolumeDao;
@@ -55,6 +56,8 @@ public class APIClient {
 	}
 
 	public void getShelfByTitles(List<String>titles){
+		BookShelf bks = new BookShelf(null, "Bookshelf", "default bookshelf");
+		daoSession.getBookShelfDao().insert(bks);
 		for(String s: titles){
 			getBookByTitle(s);
 		}
