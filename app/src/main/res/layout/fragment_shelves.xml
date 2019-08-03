@@ -2,7 +2,16 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="My Shelves"
+        android:gravity="center_horizontal"
+        android:textSize="40sp"
+        android:layout_weight="8"/>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/shelvesrv"
