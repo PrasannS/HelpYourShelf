@@ -61,8 +61,6 @@ public class ShelfActivity extends AppCompatActivity implements BooksRecyclerVie
         builder.setTitle("Add a Book");
         builder.setMessage("Title");
 
-        builder.
-
         builder.setPositiveButton("ok", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int i) {
