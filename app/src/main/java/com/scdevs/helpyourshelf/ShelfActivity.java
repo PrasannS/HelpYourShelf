@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.Toast;
 
 import com.scdevs.helpyourshelf.DBModels.Book;
 
@@ -33,6 +34,9 @@ public class ShelfActivity extends AppCompatActivity implements BooksRecyclerVie
 
     @Override
     public void onItemClick(View view, int position) {
-
+        Toast.makeText(this, "You clicked " + adapter.getItem(position) + " on row number " + position, Toast.LENGTH_SHORT).show();
+        Intent i = new Intent(this, book_info_activity.class);
+        i.putExtra("name", adapter.getItem(position));
+        startActivity(i);
     }
 }

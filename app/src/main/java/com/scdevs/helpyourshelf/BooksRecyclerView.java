@@ -1,6 +1,7 @@
 package com.scdevs.helpyourshelf;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,7 +23,7 @@ import java.util.List;
         }
 
         @Override
-        public BooksRecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             View view = mInflater.inflate(R.layout.bookitem, parent, false);
             return new BooksRecyclerView.ViewHolder(view);
         }
@@ -43,7 +44,7 @@ import java.util.List;
 
             ViewHolder(View itemView) {
                 super(itemView);
-                myTextView = itemView.findViewById(R.id.shelfname);
+                myTextView = itemView.findViewById(R.id.bookname);
                 itemView.setOnClickListener(this);
             }
 
@@ -63,6 +64,7 @@ import java.util.List;
         }
 
         public interface ItemClickListener {
+
             void onItemClick(View view, int position);
         }
     }

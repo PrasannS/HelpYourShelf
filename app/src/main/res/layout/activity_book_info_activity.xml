@@ -18,13 +18,14 @@
             android:gravity="center"
             android:id="@+id/book_image_linear_layout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
 
             <ImageView
                 android:id="@+id/book_image"
-                android:src="@drawable/example"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                />
         </LinearLayout>
 
         <!-- linear layout for the book description -->
@@ -33,7 +34,8 @@
             android:gravity="center"
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
             <TextView
                 android:id="@+id/book_description"
                 android:text="Default description\nTitle\ngenrdddddddddddddddddddddddddddddddddddddddde"
