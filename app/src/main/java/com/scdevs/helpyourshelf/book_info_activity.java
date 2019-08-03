@@ -14,7 +14,7 @@ public class book_info_activity extends AppCompatActivity {
     private ImageView book_image;
     private Button toShelf;
 
-    private String url = "https://cdn.vox-cdn.com/thumbor/L PFPz-pGRHhIVmxVCgG9C9uJdPg=/0x0:2040x1360/1200x800/filters:focal(858x574:1184x900)/cdn.vox-cdn.com/uploads/chorus_image/image/64020108/acastro_190322_1777_apple_streaming_0003.0.jpg";
+    private String url = "http://books.google.com/books/content?id=EOVjmwEACAAJ&printsec=frontcover&img=1&zoom=5&source=gbs_api";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,7 +22,7 @@ public class book_info_activity extends AppCompatActivity {
         setContentView(R.layout.activity_book_info_activity);
 
         book_image = findViewById(R.id.book_image);
-        Picasso.get().load(url).into(book_image);
+        Picasso.get().load(url).resize(600,600).into(book_image);
 
     }
 }

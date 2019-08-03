@@ -3,6 +3,7 @@ package com.scdevs.helpyourshelf;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
@@ -12,6 +13,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.scdevs.helpyourshelf.Classification.BoxDetector;
+
 import org.opencv.android.BaseLoaderCallback;
 import org.opencv.android.CameraBridgeViewBase;
 import org.opencv.android.InstallCallbackInterface;
@@ -19,7 +22,11 @@ import org.opencv.android.OpenCVLoader;
 import org.opencv.core.Core;
 import org.opencv.core.CvType;
 import org.opencv.core.Mat;
+import org.opencv.imgcodecs.Imgcodecs;
 import org.opencv.imgproc.Imgproc;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 
 /**
@@ -33,7 +40,7 @@ public class CameraFragment extends Fragment implements CameraBridgeViewBase.CvC
 
     CameraBridgeViewBase cameraBridgeViewBase;
     BaseLoaderCallback baseLoaderCallback;
-
+    boolean saveImg = false;
     FloatingActionButton fab;
 
 
@@ -51,7 +58,7 @@ public class CameraFragment extends Fragment implements CameraBridgeViewBase.CvC
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getContext(), "You took a picture", Toast.LENGTH_SHORT);
+                saveImg = true;
             }
         });
 
@@ -99,7 +106,10 @@ public class CameraFragment extends Fragment implements CameraBridgeViewBase.CvC
     @Override
     public Mat onCameraFrame(CameraBridgeViewBase.CvCameraViewFrame inputFrame) {
         Mat frame = inputFrame.rgba();
-
+        if (saveImg)
+        {
+            saveImg = false;
+        }
 
 
         return frame;

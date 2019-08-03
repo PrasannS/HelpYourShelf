@@ -13,15 +13,24 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.scdevs.helpyourshelf.DBModels.Book;
+import com.scdevs.helpyourshelf.DBModels.BookDao;
+import com.scdevs.helpyourshelf.DBModels.DaoSession;
 import com.scdevs.helpyourshelf.DBModels.Shelf;
+import com.scdevs.helpyourshelf.DBModels.Volume;
+import com.scdevs.helpyourshelf.DBModels.VolumeDao;
+
+import org.greenrobot.greendao.query.QueryBuilder;
 
 import java.util.ArrayList;
 
 public class ShelfActivity extends AppCompatActivity implements BooksRecyclerView.ItemClickListener{
 
+    //TODO: What is that weird thing btwn books and volumes help pls
     BooksRecyclerView adapter;
-    ArrayList<String> books = new ArrayList<String>();
-
+    ArrayList<Volume> books = new ArrayList<Volume>();
+    public DaoSession daoSession;
+    VolumeDao volDao;
+    APIClient client;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,8 +47,11 @@ public class ShelfActivity extends AppCompatActivity implements BooksRecyclerVie
 
 
         Intent i = getIntent();
-        books.add(i.getStringExtra("name"));
-
+        client = new APIClient(getApplicationContext());
+        daoSession = ((App) getApplication()).daoSession;
+        volDao = daoSession.getVolumeDao();
+        //QueryBuilder builder = daoSession.getBookDao().queryBuilder().where(BookDao.Properties.BookshelfID.eq(i.getStringExtra("name"));
+        //books = builder.list();
         RecyclerView recyclerView = findViewById(R.id.booksrv);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter = new BooksRecyclerView(this, books);
@@ -72,7 +84,9 @@ public class ShelfActivity extends AppCompatActivity implements BooksRecyclerVie
             public void onClick(DialogInterface dialog, int i) {
                 //ShelfActivity.this.finish();
                 System.out.println("" + input.getText());
-                books.add("" + input.getText());
+                client.getBookByTitle(input.getText().toString());
+                //TODO: Query the volume from the book title
+                books.add(daoSession.getVolumeDao().queryBuilder().where(VolumeDao.Properties.Title.like(input.getText().toString())).list().get(0));
             }
         });
 

@@ -27,12 +27,42 @@ import java.util.List;
 
 public class BoxDetector {
 
-    public void runner() {
+    private Mat srcGray = new Mat();
+    private Mat dst = new Mat();
+    private Mat dstNorm = new Mat();
+    private Mat dstNormScaled = new Mat();
+    private static final int MAX_THRESHOLD = 255;
+    private int threshold = 200;
+
+    public Bitmap runner(Mat mat) {
         try {
             System.loadLibrary("opencv_java3");
-            Mat test = new Mat(3,3,0);
-            Imgcodecs.imwrite("./a.jpg",test);
-            Mat source = Imgcodecs.imread("./a.jpg", Imgcodecs.CV_LOAD_IMAGE_GRAYSCALE);
+
+    // This function implements the Harris Corner detection. The corners at intensity > thresh
+    // are drawn.
+        Mat Harris_scene = new Mat();
+
+        Mat harris_scene_norm = new Mat(), harris_object_norm = new Mat(), harris_scene_scaled = new Mat(), harris_object_scaled = new Mat();
+        int blockSize = 9;
+        int apertureSize = 5;
+        double k = 0.1;
+        Imgproc.cornerHarris(mat, Harris_scene,blockSize, apertureSize,k);
+
+        Core.normalize(Harris_scene, harris_scene_norm, 0, 255, Core.NORM_MINMAX, CvType.CV_32FC1, new Mat());
+
+        Core.convertScaleAbs(harris_scene_norm, harris_scene_scaled);
+
+        for( int j = 0; j < harris_scene_norm.rows() ; j++){
+            for( int i = 0; i < harris_scene_norm.cols(); i++){
+                if ((int) harris_scene_norm.get(j,i)[0] > 15){
+                    Imgproc.circle(harris_scene_scaled, new Point(i,j), 5 , new Scalar(0), 2 ,8 , 0);
+                }
+            }
+        }
+
+
+            /*
+            Mat source = mat;
             Mat destination = new Mat(source.rows(), source.cols(), source.type());
             int threshold = 100;
 
@@ -75,12 +105,12 @@ public class BoxDetector {
                     }
                 }
             }
-
-            Imgcodecs.imwrite("rectangle_houghtransform.jpg", source);
-
+            */
+            return getBitmapFromMat(harris_scene_scaled);
         } catch (Exception e) {
             System.out.println("error: " + e.getMessage());
         }
+        return null;
     }
 
     private static double angle(Point pt1, Point pt2, Point pt0) {
