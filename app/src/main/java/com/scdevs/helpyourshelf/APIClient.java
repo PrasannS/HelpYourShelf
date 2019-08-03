@@ -54,6 +54,12 @@ public class APIClient {
 		volDao = daoSession.getVolumeDao();
 	}
 
+	public void getShelfByTitles(List<String>titles){
+		for(String s: titles){
+			getBookByTitle(s);
+		}
+	}
+
 	public void getBookByTitle(String title)
 	{
 		Call<BooksResult> call = booksInterface.getBooks(title, "AIzaSyBjz1Zdri5qruEOwT3-uRvg613pXtFzFwM");
