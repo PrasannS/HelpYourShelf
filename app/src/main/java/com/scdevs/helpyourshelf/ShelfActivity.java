@@ -1,7 +1,9 @@
 package com.scdevs.helpyourshelf;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -10,6 +12,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.scdevs.helpyourshelf.DBModels.Book;
+import com.scdevs.helpyourshelf.DBModels.Shelf;
 
 import java.util.ArrayList;
 
@@ -27,7 +30,7 @@ public class ShelfActivity extends AppCompatActivity implements BooksRecyclerVie
             @Override
             public void onClick(View v) {
                 Toast.makeText(ShelfActivity.this, "add a book", Toast.LENGTH_SHORT).show();
-                //openDialog();
+                openDialog();
             }
         });
 
@@ -50,5 +53,24 @@ public class ShelfActivity extends AppCompatActivity implements BooksRecyclerVie
         startActivity(i);
     }
 
-    //public void
+    public void openDialog(){
+        //AddBookDialog addBookDialog = new AddBookDialog(this);
+        //addBookDialog.show();
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        builder.setTitle("Add a Book");
+        builder.setMessage("Title");
+
+        builder.
+
+        builder.setPositiveButton("ok", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int i) {
+                ShelfActivity.this.finish();
+            }
+        });
+
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+    }
 }
