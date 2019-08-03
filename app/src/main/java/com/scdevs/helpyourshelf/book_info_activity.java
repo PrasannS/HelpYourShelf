@@ -53,9 +53,9 @@ public class book_info_activity extends AppCompatActivity {
                 if (response.isSuccessful())
                 {
                     VolumeInfo info = response.body().getItems().get(0).getVolumeInfo();
-                    title.setText(info.getTitle());
-                    author.setText(info.getAuthors().toString().substring(1, info.getAuthors().toString().length() - 1));
-                    desc.setText(info.getDescription());
+                    title.setText("Title: " + info.getTitle() + "\n");
+                    author.setText("Author(s): " + info.getAuthors().toString().substring(1, info.getAuthors().toString().length() - 1) + "\n");
+                    desc.setText("Description: " + info.getDescription());
                 }
                 else{
                 }
