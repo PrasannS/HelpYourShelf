@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.scdevs.helpyourshelf.DBModels.Book;
@@ -19,6 +20,7 @@ import java.util.ArrayList;
 public class ShelfActivity extends AppCompatActivity implements BooksRecyclerView.ItemClickListener{
 
     BooksRecyclerView adapter;
+    ArrayList<String> books = new ArrayList<String>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +36,7 @@ public class ShelfActivity extends AppCompatActivity implements BooksRecyclerVie
             }
         });
 
-        ArrayList<String> books = new ArrayList<String>();
+
         Intent i = getIntent();
         books.add(i.getStringExtra("name"));
 
@@ -61,14 +63,21 @@ public class ShelfActivity extends AppCompatActivity implements BooksRecyclerVie
         builder.setTitle("Add a Book");
         builder.setMessage("Title");
 
+        final EditText input = new EditText(this);
+
+        builder.setView(input);
+
         builder.setPositiveButton("ok", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int i) {
-                ShelfActivity.this.finish();
+                //ShelfActivity.this.finish();
+                System.out.println("" + input.getText());
+                books.add("" + input.getText());
             }
         });
 
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
+
     }
 }
