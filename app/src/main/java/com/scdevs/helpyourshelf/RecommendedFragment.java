@@ -5,6 +5,8 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,9 +29,11 @@ import retrofit2.Response;
  * Use the {@link RecommendedFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class RecommendedFragment extends Fragment implements APIClient.responseCallbackListener {
+public class RecommendedFragment extends Fragment implements APIClient.responseCallbackListener, BooksRecyclerView.ItemClickListener {
 
     ArrayList<BookHolder> recommendations;
+
+    BooksRecyclerView adapter;
 
     public static RecommendedFragment newInstance(){
         RecommendedFragment fragment = new RecommendedFragment();
@@ -40,8 +44,51 @@ public class RecommendedFragment extends Fragment implements APIClient.responseC
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
         View view = inflater.inflate(R.layout.fragment_recommended , container, false);
-        recommendations = new ArrayList<>();
+
         APIClient client = new APIClient(this, getActivity().getApplication());
+
+
+        recommendations = new ArrayList<>();
+
+        ArrayList<Volume> recommendations = new ArrayList<Volume>();
+
+        /*
+        client.getRecommendations(recommendations);
+        pareRecommendations();
+
+        ArrayList<String> booknames = new ArrayList<String>();
+
+        for(int i = 0; i < recommendations.size(); i++){
+            booknames.add(recommendations.get(i).getTitle());
+        }*/
+
+        recommendations.add(new Volume("Uncle Tom's Cabin"));
+        recommendations.add(new Volume("It"));
+        recommendations.add(new Volume("Harry Potter and the Goblet of Fire"));
+        recommendations.add(new Volume("Harry Potter and the Chamber of Secrets"));
+        recommendations.add(new Volume("Red Fish Blue Fish"));
+        recommendations.add(new Volume("The Lightning Thief"));
+        recommendations.add(new Volume("The Book Thief"));
+        recommendations.add(new Volume("Narrative of Frederick Douglas"));
+        recommendations.add(new Volume("How to come up with fake book titles"));
+        recommendations.add(new Volume("How to read a book"));
+        recommendations.add(new Volume("Java Programming Textbook"));
+        recommendations.add(new Volume("Diary of a Wimpy Kid"));
+        recommendations.add(new Volume("Hairy Pooter and the Sorcerer's Rock"));
+        recommendations.add(new Volume("Hary Podder and the 1/2 Blood Prince"));
+        recommendations.add(new Volume("Harey Potter and the Deathly Hallows"));
+
+
+
+        RecyclerView recyclerView = view.findViewById(R.id.recommendedrv);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        adapter = new BooksRecyclerView(getContext(), recommendations);
+        recyclerView.setAdapter(adapter);
+        adapter.setClickListener(this);
+
+
+
+
 
         return view;
     }
@@ -68,6 +115,11 @@ public class RecommendedFragment extends Fragment implements APIClient.responseC
 
     @Override
     public void onCallback(String s) {
+
+    }
+
+    @Override
+    public void onItemClick(View view, int position) {
 
     }
 }

@@ -10,6 +10,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.scdevs.helpyourshelf.BooksAPI.VolumeInfo;
@@ -69,10 +70,12 @@ public class ShelfActivity extends AppCompatActivity implements BooksRecyclerVie
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(ShelfActivity.this, "add a book", Toast.LENGTH_SHORT).show();
                 openDialog();
             }
         });
+
+        TextView title = findViewById(R.id.shelftitle);
+        title.setText(name);
 
 
         client = new APIClient(this,getApplicationContext());
@@ -88,7 +91,6 @@ public class ShelfActivity extends AppCompatActivity implements BooksRecyclerVie
 
     @Override
     public void onItemClick(View view, int position) {
-        Toast.makeText(this, "You clicked " + adapter.getItem(position) + " on row number " + position, Toast.LENGTH_SHORT).show();
         Intent i = new Intent(this, book_info_activity.class);
         i.putExtra("name", adapter.getItem(position));
         startActivity(i);
@@ -112,6 +114,7 @@ public class ShelfActivity extends AppCompatActivity implements BooksRecyclerVie
                 //ShelfActivity.this.finish();
                 System.out.println("" + input.getText());
                 client.getBookByTitle(input.getText().toString());
+                books.add(new Volume("" + input.getText()));
                 //TODO: Query the volume from the book title
 
             }
