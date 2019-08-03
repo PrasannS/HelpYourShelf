@@ -14,7 +14,7 @@ public class book_info_activity extends AppCompatActivity {
     private ImageView book_image;
     private Button toShelf;
 
-    private String url = "http://books.google.com/books/content?id=RFVoAwAAQBAJ&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api";
+    private String url = "https://cdn.vox-cdn.com/thumbor/LPFPz-pGRHhIVmxVCgG9C9uJdPg=/0x0:2040x1360/1200x800/filters:focal(858x574:1184x900)/cdn.vox-cdn.com/uploads/chorus_image/image/64020108/acastro_190322_1777_apple_streaming_0003.0.jpg";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
