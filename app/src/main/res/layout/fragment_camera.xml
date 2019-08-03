@@ -5,6 +5,13 @@
     android:layout_height="match_parent"
     tools:context=".CameraFragment">
 
+	<android.support.design.widget.FloatingActionButton
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:src="@drawable/ic_camera_black_24dp"
+		android:layout_gravity="bottom|center_horizontal"
+		android:layout_marginBottom="30dp"
+		android:id="@+id/camerabutton"/>
 
 	<org.opencv.android.JavaCameraView
 		android:layout_height="match_parent"

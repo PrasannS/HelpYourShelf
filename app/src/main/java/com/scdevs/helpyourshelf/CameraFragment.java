@@ -4,6 +4,7 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.SurfaceView;
@@ -33,6 +34,8 @@ public class CameraFragment extends Fragment implements CameraBridgeViewBase.CvC
     CameraBridgeViewBase cameraBridgeViewBase;
     BaseLoaderCallback baseLoaderCallback;
 
+    FloatingActionButton fab;
+
 
     public static CameraFragment newInstance(){
         CameraFragment fragment = new CameraFragment();
@@ -43,6 +46,14 @@ public class CameraFragment extends Fragment implements CameraBridgeViewBase.CvC
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
         View view = inflater.inflate(R.layout.fragment_camera , container, false);
+
+        fab = view.findViewById(R.id.camerabutton);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getContext(), "You took a picture", Toast.LENGTH_SHORT);
+            }
+        });
 
         return view;
     }
