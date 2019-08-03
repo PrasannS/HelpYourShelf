@@ -10,10 +10,13 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.scdevs.helpyourshelf.BooksAPI.VolumeInfo;
 import com.scdevs.helpyourshelf.DBModels.Book;
 import com.scdevs.helpyourshelf.DBModels.BookDao;
+import com.scdevs.helpyourshelf.DBModels.BookShelfDao;
 import com.scdevs.helpyourshelf.DBModels.DaoSession;
 import com.scdevs.helpyourshelf.DBModels.Shelf;
 import com.scdevs.helpyourshelf.DBModels.Volume;
@@ -22,6 +25,7 @@ import com.scdevs.helpyourshelf.DBModels.VolumeDao;
 import org.greenrobot.greendao.query.QueryBuilder;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ShelfActivity extends AppCompatActivity implements BooksRecyclerView.ItemClickListener, APIClient.responseCallbackListener{
 
@@ -31,10 +35,21 @@ public class ShelfActivity extends AppCompatActivity implements BooksRecyclerVie
     public DaoSession daoSession;
     VolumeDao volDao;
     APIClient client;
+    public String name;
+    public Long id;
+
+    @Override
+    public void onCallback(VolumeInfo vi,Long bksid) {
+        List<Volume>vols= daoSession.getVolumeDao().queryBuilder().where(VolumeDao.Properties.Title.like(vi.getTitle())).list();
+        if(vols.size()!=0) {
+            books.add(vols.get(0));
+            daoSession.getBookDao().insert(new Book(null,vols.get(0).getID() ,bksid, null, 0.0,false ));
+        }
+    }
 
     @Override
     public void onCallback(String s) {
-        books.add(daoSession.getVolumeDao().queryBuilder().where(VolumeDao.Properties.Title.like(s)).list().get(0));
+
     }
 
     @Override
@@ -47,6 +62,10 @@ public class ShelfActivity extends AppCompatActivity implements BooksRecyclerVie
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shelf);
 
+
+        daoSession = ((App) getApplication()).daoSession;
+         name = getIntent().getStringExtra("name");
+         id = daoSession.getBookShelfDao().queryBuilder().where(BookShelfDao.Properties.Name.like(name)).list().get(0).getID();
         FloatingActionButton fab = findViewById(R.id.addbook);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -55,9 +74,11 @@ public class ShelfActivity extends AppCompatActivity implements BooksRecyclerVie
             }
         });
 
+        TextView title = findViewById(R.id.shelftitle);
+        title.setText(name);
+
 
         client = new APIClient(this,getApplicationContext());
-        daoSession = ((App) getApplication()).daoSession;
         volDao = daoSession.getVolumeDao();
         //QueryBuilder builder = daoSession.getBookDao().queryBuilder().where(BookDao.Properties.BookshelfID.eq(i.getStringExtra("name"));
         //books = builder.list();
@@ -65,7 +86,7 @@ public class ShelfActivity extends AppCompatActivity implements BooksRecyclerVie
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter = new BooksRecyclerView(this, books);
         recyclerView.setAdapter(adapter);
-        adapter.setClickListener(this);
+
     }
 
     @Override
@@ -93,6 +114,7 @@ public class ShelfActivity extends AppCompatActivity implements BooksRecyclerVie
                 //ShelfActivity.this.finish();
                 System.out.println("" + input.getText());
                 client.getBookByTitle(input.getText().toString());
+                books.add(new Volume("" + input.getText()));
                 //TODO: Query the volume from the book title
 
             }

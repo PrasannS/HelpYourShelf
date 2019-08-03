@@ -42,7 +42,6 @@ public class APIClient {
 	}
 
 
-
 	public APIClient(responseCallbackListener r, Context context)
 	{
 		Retrofit builder = new Retrofit.Builder()
@@ -55,6 +54,12 @@ public class APIClient {
 		volDao = daoSession.getVolumeDao();
 	}
 
+	public void getShelfByTitles(List<String>titles){
+		for(String s: titles){
+			getBookByTitle(s);
+		}
+	}
+
 	public void getBookByTitle(String title)
 	{
 		Call<BooksResult> call = booksInterface.getBooks(title, "AIzaSyBjz1Zdri5qruEOwT3-uRvg613pXtFzFwM");
@@ -63,18 +68,15 @@ public class APIClient {
 			public void onResponse(Call<BooksResult> call, Response<BooksResult> response) {
 				if (response.isSuccessful())
 				{
-					responseListener.onCallback(response.body().getItems().get(0).getVolumeInfo().getTitle());
-					if (response.body().getItems().size() > 0)
+					if (response.body().getItems().size() > 0) {
 						volDao.insert(volumeInfoToVolume(response.body().getItems().get(0).getVolumeInfo()));
-
+					}
+					responseListener.onCallback(response.body().getItems().get(0).getVolumeInfo(),daoSession.getBookShelfDao().loadAll().get(daoSession.getBookShelfDao().loadAll().size()-1).getID());
 				}
 				else{
 					System.out.println("Unsuccessful");
 				}
-
-
 			}
-
 			@Override
 			public void onFailure(Call<BooksResult> call, Throwable t) {
 				System.out.println("Failure");
@@ -149,7 +151,9 @@ public class APIClient {
 	public interface responseCallbackListener
 	{
 		public void onCallback(ArrayList<BookHolder> response);
-		public void onCallback(String s);
+		public void onCallback(VolumeInfo s, Long bksid);
+
+		void onCallback(String s);
 	}
 
 }
