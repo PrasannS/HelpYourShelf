@@ -7,6 +7,7 @@ import android.widget.Toast;
 import com.scdevs.helpyourshelf.BooksAPI.BooksResult;
 import com.scdevs.helpyourshelf.BooksAPI.Item;
 import com.scdevs.helpyourshelf.BooksAPI.VolumeInfo;
+import com.scdevs.helpyourshelf.DBModels.Book;
 import com.scdevs.helpyourshelf.DBModels.BookDao;
 import com.scdevs.helpyourshelf.DBModels.BookShelf;
 import com.scdevs.helpyourshelf.DBModels.DaoSession;
@@ -59,7 +60,7 @@ public class APIClient {
 		BookShelf bks = new BookShelf(null, "Bookshelf", "default bookshelf");
 		daoSession.getBookShelfDao().insert(bks);
 		for(String s: titles){
-			getBookByTitle(s);
+			Book b= new Book(null,null,bks.getID(),null, 0,false, "s");
 		}
 	}
 
