@@ -63,10 +63,10 @@ public class APIClient {
 			public void onResponse(Call<BooksResult> call, Response<BooksResult> response) {
 				if (response.isSuccessful())
 				{
-					System.out.println("SUCESSFUL RESPONSE" + response.body().getItems().get(0).getVolumeInfo().getTitle());
+					responseListener.onCallback(response.body().getItems().get(0).getVolumeInfo().getTitle());
 					if (response.body().getItems().size() > 0)
 						volDao.insert(volumeInfoToVolume(response.body().getItems().get(0).getVolumeInfo()));
-					responseListener.onCallback(response.body().getItems().get(0).getVolumeInfo().getTitle());
+
 				}
 				else{
 					System.out.println("Unsuccessful");

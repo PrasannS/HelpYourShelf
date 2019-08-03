@@ -285,7 +285,7 @@ public class Volume {
 	}
 
 	public void setPanelizationSummary2(PanelizationSummary panelizationSummary) {
-		if(panelizationSummary!=null);
+		if(panelizationSummary!=null)
 		this.panelizationSummary = panelizationSummary.getContainsEpubBubbles().toString() + panelizationSummary.getContainsImageBubbles().toString();
 	}
 

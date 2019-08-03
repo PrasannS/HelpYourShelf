@@ -57,7 +57,7 @@ public class ShelfActivity extends AppCompatActivity implements BooksRecyclerVie
         });
 
 
-        client = new APIClient(getApplicationContext());
+        client = new APIClient(this,getApplicationContext());
         daoSession = ((App) getApplication()).daoSession;
         volDao = daoSession.getVolumeDao();
         //QueryBuilder builder = daoSession.getBookDao().queryBuilder().where(BookDao.Properties.BookshelfID.eq(i.getStringExtra("name"));
