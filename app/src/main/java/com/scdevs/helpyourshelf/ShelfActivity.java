@@ -13,7 +13,11 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.scdevs.helpyourshelf.DBModels.Book;
+import com.scdevs.helpyourshelf.DBModels.BookDao;
+import com.scdevs.helpyourshelf.DBModels.DaoSession;
 import com.scdevs.helpyourshelf.DBModels.Shelf;
+
+import org.greenrobot.greendao.query.QueryBuilder;
 
 import java.util.ArrayList;
 
@@ -21,6 +25,7 @@ public class ShelfActivity extends AppCompatActivity implements BooksRecyclerVie
 
     BooksRecyclerView adapter;
     ArrayList<String> books = new ArrayList<String>();
+    public DaoSession daoSession;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +44,8 @@ public class ShelfActivity extends AppCompatActivity implements BooksRecyclerVie
 
         Intent i = getIntent();
         books.add(i.getStringExtra("name"));
-
+        //QueryBuilder builder = daoSession.getBookDao().queryBuilder().where(BookDao.Properties.BookshelfID.eq(i.getStringExtra("name"));
+        //books = builder.list();
         RecyclerView recyclerView = findViewById(R.id.booksrv);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter = new BooksRecyclerView(this, books);

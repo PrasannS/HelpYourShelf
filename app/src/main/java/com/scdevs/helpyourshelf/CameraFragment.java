@@ -13,6 +13,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.scdevs.helpyourshelf.Classification.BoxDetector;
+
 import org.opencv.android.BaseLoaderCallback;
 import org.opencv.android.CameraBridgeViewBase;
 import org.opencv.android.InstallCallbackInterface;
@@ -107,7 +109,6 @@ public class CameraFragment extends Fragment implements CameraBridgeViewBase.CvC
         if (saveImg)
         {
             saveImg = false;
-            //TODO: Prasann do his weird stuff
         }
 
 

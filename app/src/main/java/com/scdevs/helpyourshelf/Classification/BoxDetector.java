@@ -27,12 +27,10 @@ import java.util.List;
 
 public class BoxDetector {
 
-    public void runner() {
+    public Bitmap runner(Mat mat) {
         try {
             System.loadLibrary("opencv_java3");
-            Mat test = new Mat(3,3,0);
-            Imgcodecs.imwrite("./a.jpg",test);
-            Mat source = Imgcodecs.imread("./a.jpg", Imgcodecs.CV_LOAD_IMAGE_GRAYSCALE);
+            Mat source = mat;
             Mat destination = new Mat(source.rows(), source.cols(), source.type());
             int threshold = 100;
 
@@ -75,12 +73,11 @@ public class BoxDetector {
                     }
                 }
             }
-
-            Imgcodecs.imwrite("rectangle_houghtransform.jpg", source);
-
+            return getBitmapFromMat(destination);
         } catch (Exception e) {
             System.out.println("error: " + e.getMessage());
         }
+        return null;
     }
 
     private static double angle(Point pt1, Point pt2, Point pt0) {

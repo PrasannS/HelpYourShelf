@@ -13,8 +13,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import java.util.ArrayList;
+import com.scdevs.helpyourshelf.DBModels.Book;
+import com.scdevs.helpyourshelf.DBModels.BookShelf;
+import com.scdevs.helpyourshelf.DBModels.DaoSession;
 
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class ShelvesFragment extends Fragment implements ShelvesRecyclerView.ItemClickListener{
@@ -23,6 +27,8 @@ public class ShelvesFragment extends Fragment implements ShelvesRecyclerView.Ite
         return fragment;
     }
 
+
+    public DaoSession daoSession;
     ShelvesRecyclerView adapter;
 
     @Nullable
@@ -30,13 +36,8 @@ public class ShelvesFragment extends Fragment implements ShelvesRecyclerView.Ite
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
         View view = inflater.inflate(R.layout.fragment_shelves , container, false);
 
-
-        ArrayList<String> shelfnames = new ArrayList<>();
-        shelfnames.add("Home Bookshelf");
-        shelfnames.add("School Bookshelf");
-        shelfnames.add("Library Bookshelf");
-        shelfnames.add("Something Bookshelf");
-
+        daoSession = ((App) getActivity().getApplication()).getDaoSession();
+        ArrayList<String> shelfnames = (ArrayList<String>) getShelfNames();
 
         // set up the RecyclerView
         RecyclerView recyclerView = view.findViewById(R.id.shelvesrv);
@@ -46,6 +47,15 @@ public class ShelvesFragment extends Fragment implements ShelvesRecyclerView.Ite
         adapter.setClickListener(this);
 
         return view;
+    }
+
+    public List<String> getShelfNames(){
+        List<BookShelf> bks = daoSession.getBookShelfDao().loadAll();
+        List<String> ans = new ArrayList<>();
+        for(int i  = 0; i<bks.size();i++){
+            ans.add(bks.get(i).getName());
+        }
+        return ans;
     }
 
 
