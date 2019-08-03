@@ -36,5 +36,11 @@
 		android:layout_width="match_parent"
 		android:visibility="visible"
 		android:id="@+id/cameraView"></org.opencv.android.JavaCameraView>
+		<ImageView
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:id="@+id/TestImgView"
+			android:visibility="invisible" />
+
 
 </FrameLayout>
