@@ -9,11 +9,9 @@ import android.widget.ImageView;
 
 import com.squareup.picasso.Picasso;
 
-import me.relex.photodraweeview.PhotoDraweeView;
-
 public class book_info_activity extends AppCompatActivity {
 
-    private ImageView imageView;
+    private ImageView book_image;
     private Button toShelf;
 
     private String url = "http://books.google.com/books/content?id=RFVoAwAAQBAJ&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api";
@@ -23,12 +21,8 @@ public class book_info_activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_book_info_activity);
 
-        PhotoDraweeView drawerView = (PhotoDraweeView) findViewById(R.id.book_image);
-        drawerView.setPhotoUri(Uri.parse(url));
+        book_image = findViewById(R.id.book_image);
+        Picasso.get().load(url).into(book_image);
 
-        /*
-        picaso not working
-        String url = "http://books.google.com/books/content?id=RFVoAwAAQBAJ&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api";
-        Picasso.with(this).load(url).into(imageView); */
     }
 }

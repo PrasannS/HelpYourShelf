@@ -7,7 +7,6 @@ import android.widget.ImageView;
 
 import com.squareup.picasso.Picasso;
 
-import me.relex.photodraweeview.PhotoDraweeView;
 
 public class BookRecommendation extends AppCompatActivity {
 
@@ -28,17 +27,19 @@ public class BookRecommendation extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_book_recommendation);
 
-        PhotoDraweeView drawerView1 = (PhotoDraweeView) findViewById(R.id.tile1);
-        drawerView1.setPhotoUri(Uri.parse(tile1URL));
+        tile1.findViewById(R.id.tile1);
+        Picasso.get().load(tile1URL).into(tile1);
 
-        PhotoDraweeView drawerView2 = (PhotoDraweeView) findViewById(R.id.tile2);
-        drawerView2.setPhotoUri(Uri.parse(tile2URL));
+        tile2.findViewById(R.id.tile2);
+        Picasso.get().load(tile2URL).into(tile2);
 
-        PhotoDraweeView drawerView3 = (PhotoDraweeView) findViewById(R.id.tile3);
-        drawerView3.setPhotoUri(Uri.parse(tile3URL));
+        tile3.findViewById(R.id.tile3);
+        Picasso.get().load(tile3URL).into(tile3);
 
-        PhotoDraweeView drawerView4 = (PhotoDraweeView) findViewById(R.id.tile4);
-        drawerView4.setPhotoUri(Uri.parse(tile4URL));
+        tile4.findViewById(R.id.tile4);
+        Picasso.get().load(tile4URL).into(tile4);
+
+
 
     }
 }

@@ -21,6 +21,7 @@
             android:gravity="center_horizontal"
             android:textSize="40sp" />
 
+        <!-- similar genre -->
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
@@ -33,30 +34,33 @@
                 android:text="Similar Genre" />
 
             <LinearLayout
-                android:background="@android:color/black"
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <me.relex.photodraweeview.PhotoDraweeView
+                <ImageView
                     android:id="@+id/tile1"
+                    android:layout_weight="1"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"/>
+                    android:layout_height="match_parent" />
 
-                <me.relex.photodraweeview.PhotoDraweeView
+                <ImageView
                     android:id="@+id/tile2"
+                    android:layout_weight="1"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"/>
+                    android:layout_height="match_parent" />
 
-                <me.relex.photodraweeview.PhotoDraweeView
+                <ImageView
                     android:id="@+id/tile3"
+                    android:layout_weight="1"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"/>
+                    android:layout_height="match_parent" />
 
-                <me.relex.photodraweeview.PhotoDraweeView
+                <ImageView
                     android:id="@+id/tile4"
+                    android:layout_weight="1"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"/>
+                    android:layout_height="match_parent" />
 
             </LinearLayout>
 
