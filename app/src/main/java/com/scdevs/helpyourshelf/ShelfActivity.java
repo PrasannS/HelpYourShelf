@@ -1,6 +1,7 @@
 package com.scdevs.helpyourshelf;
 
 import android.content.Intent;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -21,6 +22,15 @@ public class ShelfActivity extends AppCompatActivity implements BooksRecyclerVie
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shelf);
 
+        FloatingActionButton fab = findViewById(R.id.addbook);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(ShelfActivity.this, "add a book", Toast.LENGTH_SHORT).show();
+                //openDialog();
+            }
+        });
+
         ArrayList<String> books = new ArrayList<String>();
         Intent i = getIntent();
         books.add(i.getStringExtra("name"));
@@ -39,4 +49,6 @@ public class ShelfActivity extends AppCompatActivity implements BooksRecyclerVie
         i.putExtra("name", adapter.getItem(position));
         startActivity(i);
     }
+
+    //public void
 }

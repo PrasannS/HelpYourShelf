@@ -18,14 +18,13 @@
             android:gravity="center"
             android:id="@+id/book_image_linear_layout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1">
+            android:layout_height="wrap_content">
 
-            <ImageView
+            <!-- image loader -->
+            <me.relex.photodraweeview.PhotoDraweeView
                 android:id="@+id/book_image"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                />
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
         </LinearLayout>
 
         <!-- linear layout for the book description -->
@@ -34,8 +33,7 @@
             android:gravity="center"
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1">
+            android:layout_height="wrap_content">
             <TextView
                 android:id="@+id/book_description"
                 android:text="Default description\nTitle\ngenrdddddddddddddddddddddddddddddddddddddddde"
