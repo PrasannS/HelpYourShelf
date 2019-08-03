@@ -23,7 +23,7 @@ import java.util.List;
 
         @Override
         public BooksRecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            View view = mInflater.inflate(R.layout.bookitem, parent, false);
+            View view = mInflater.inflate(R.layout, parent, false);
             return new BooksRecyclerView.ViewHolder(view);
         }
 
